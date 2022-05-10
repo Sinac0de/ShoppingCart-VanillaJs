@@ -92,7 +92,6 @@ nav span:hover {
 .product {
     display: flex;
     flex-direction: column;
-
     border-radius: 15px;
     padding: 1em;
     padding-bottom: 1.5em;
@@ -208,8 +207,8 @@ footer a:visited {
     }
 }
 
-/* MOBILE */
-@media Screen and (max-width: 425px) {
+/* portrait tablet and mobile*/
+@media Screen and (max-width: 600px) {
     .products {
         grid-template-columns: 1fr;
         justify-items: center;
