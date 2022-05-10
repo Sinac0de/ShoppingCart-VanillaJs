@@ -84,7 +84,7 @@ nav span:hover {
 .products {
     margin: 2em;
     display: grid;
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: repeat(4, 1fr);
     gap: 2em;
     justify-content: center;
 }
@@ -92,8 +92,7 @@ nav span:hover {
 .product {
     display: flex;
     flex-direction: column;
-    width: 330px;
-    height: 330px;
+
     border-radius: 15px;
     padding: 1em;
     padding-bottom: 1.5em;
@@ -176,4 +175,48 @@ footer a:visited {
     text-decoration: none;
     color: var(--main-purple);
 
+}
+
+/*-------------
+ Media Queries
+-------------*/
+
+/* Small laptops */
+
+@media Screen and (max-width: 1024px) {
+    .products {
+        grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
+    }
+
+    .product {
+        width: 90%;
+        height: auto;
+    }
+}
+
+/* TABLET */
+@media Screen and (max-width: 768px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+    }
+
+    .product {
+        width: 90%;
+        height: auto;
+    }
+}
+
+/* MOBILE */
+@media Screen and (max-width: 425px) {
+    .products {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    .product {
+        width: 90%;
+        height: auto;
+    }
 }
