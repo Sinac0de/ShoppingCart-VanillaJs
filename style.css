@@ -8,9 +8,9 @@
 
 :root {
     --main-bg-color: #e2e2e2;
-    --card-bg-color: white;
+    --card-bg-color: #ffffff;
     --primary-color: #866EFB;
-    --main-white: white;
+    --main-white: #ffffff;
     --main-purple: rgb(96, 34, 240);
 }
 
@@ -76,4 +76,104 @@ nav span:hover {
     top: -2px;
     right: -6px;
     font-weight: bold;
+}
+
+/*----------------------
+ Product section STYLES
+-----------------------*/
+.products {
+    margin: 2em;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 2em;
+    justify-content: center;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    width: 330px;
+    height: 330px;
+    border-radius: 15px;
+    padding: 1em;
+    padding-bottom: 1.5em;
+    background-color: var(--card-bg-color);
+    overflow: hidden;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.product img {
+    width: 80%;
+    margin-bottom: .5em;
+}
+
+.product-img {
+    display: flex;
+    justify-content: center;
+}
+
+.product-info {
+    height: 100%;
+    line-height: 1.75em;
+}
+
+.product-title-rate {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-title-rate span i {
+    color: gold;
+}
+
+.product-title {
+    font-weight: bold;
+}
+
+.product-price-cart {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-to-cart {
+    outline: none;
+    border: none;
+    background-color: white;
+    border: 1px solid gray;
+    opacity: 60%;
+    padding: 0 1em;
+    transition: background-color .5s, opacity .5s;
+    border-radius: 15px;
+}
+
+.add-to-cart:hover {
+    cursor: pointer;
+    opacity: 100%;
+    background-color: var(--primary-color);
+    color: var(--main-white);
+    border-radius: 15px;
+    transition: background-color .5s, opacity .5s;
+    padding: 0 1em;
+}
+
+
+/*-------------
+ FOOTER Styles
+-------------*/
+
+footer {
+    background-color: var(--main-white);
+    color: var(--primary-color);
+    height: 30px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer a,
+footer a:visited {
+    text-decoration: none;
+    color: var(--main-purple);
+
 }
