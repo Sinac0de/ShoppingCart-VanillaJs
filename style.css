@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --main-bg-color: #e2e2e2;
+    --card-bg-color: white;
+    --primary-color: #866EFB;
+    --main-white: white;
+    --main-purple: rgb(96, 34, 240);
+}
+
+body {
+    background-color: var(--main-bg-color);
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+}
+
+/*---------------
+ NAVBAR STYLES
+---------------*/
+nav {
+    background-color: var(--main-white);
+    height: 60px;
+    display: flex;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+nav span {
+    font-size: 1.5rem;
+}
+
+
+nav span:hover {
+    cursor: pointer;
+}
+
+
+.nav-title {
+    color: var(--main-purple);
+    font-size: 1.5rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.container-nav {
+    width: 90%;
+    max-width: 780px;
+    justify-content: space-between;
+}
+
+.cart-icon {
+    position: relative;
+}
+
+.cart-count {
+    background-color: var(--primary-color);
+    color: var(--main-white);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 15px;
+    font-size: 0.7rem;
+    top: -2px;
+    right: -6px;
+    font-weight: bold;
+}
