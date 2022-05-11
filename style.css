@@ -202,7 +202,7 @@ nav span:hover {
 
 .cart-modal {
     position: fixed;
-    top: 15em;
+    top: 11em;
     display: flex;
     flex-direction: column;
     justify-content: center;
