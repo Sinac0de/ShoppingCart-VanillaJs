@@ -14,6 +14,7 @@
     --main-gray: #474747;
     --main-purple: rgb(96, 34, 240);
     --main-red: rgb(255, 136, 136);
+    --main-dark-red: rgb(208, 111, 111);
 }
 
 body {
@@ -75,6 +76,10 @@ nav span:hover {
 
 .cart-icon {
     position: relative;
+}
+
+.cart-icon:hover {
+    cursor: pointer;
 }
 
 .cart-count {
@@ -186,20 +191,19 @@ nav span:hover {
 }
 
 .overlay {
+    display: none;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.5);
-    transition: opacity .3s;
-    opacity: 1;
 }
 
 .cart-modal {
     position: fixed;
-    display: flex;
     top: 15em;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -207,7 +211,8 @@ nav span:hover {
     border-radius: 15px;
     max-width: 700px;
     padding: 1em;
-
+    opacity: 0;
+    transform: translateY(-20em);
 }
 
 .cart-body {
@@ -239,6 +244,11 @@ nav span:hover {
     line-height: 1em;
 }
 
+.cart-item-count i,
+.fa-trash {
+    cursor: pointer;
+}
+
 .cart-item-img {
     display: flex;
     width: 20%;
@@ -260,6 +270,7 @@ nav span:hover {
     outline: none;
     border: none;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 #confirm-btn {
@@ -268,10 +279,18 @@ nav span:hover {
     margin-left: .5em;
 }
 
+#confirm-btn:hover {
+    background-color: var(--main-purple);
+}
+
 #clear-btn {
     background-color: var(--main-red);
     color: var(--main-white);
     margin-left: 1em;
+}
+
+#clear-btn:hover {
+    background-color: var(--main-dark-red);
 }
 
 
