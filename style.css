@@ -13,12 +13,14 @@
     --main-white: #ffffff;
     --main-gray: #474747;
     --main-purple: rgb(96, 34, 240);
+    --main-red: rgb(255, 136, 136);
 }
 
 body {
     background-color: var(--main-bg-color);
     font-family: "Poppins", sans-serif;
     font-size: 15px;
+    position: relative;
 }
 
 ::-webkit-scrollbar {
@@ -35,6 +37,8 @@ body {
  NAVBAR STYLES
 ---------------*/
 nav {
+    position: sticky;
+    top: 0;
     background-color: var(--main-white);
     height: 60px;
     display: flex;
@@ -169,6 +173,108 @@ nav span:hover {
     border-radius: 15px;
     transition: background-color .5s, opacity .5s;
 }
+
+/*------------------
+ CART MODAL STYLES
+ -----------------*/
+
+.cart-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    transition: opacity .3s;
+    opacity: 1;
+}
+
+.cart-modal {
+    position: fixed;
+    display: flex;
+    top: 15em;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 15px;
+    max-width: 700px;
+    padding: 1em;
+
+}
+
+.cart-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1em;
+    height: 10em;
+    overflow: scroll;
+}
+
+.cart-item {
+    width: 90%;
+    display: flex;
+    margin-bottom: .5em;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cart-item-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    line-height: 2em;
+}
+
+.cart-item-count {
+    line-height: 1em;
+}
+
+.cart-item-img {
+    display: flex;
+    width: 20%;
+}
+
+.cart-item-img img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.cart-footer {
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+}
+
+.cart-btn {
+    padding: .5em;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+}
+
+#confirm-btn {
+    background-color: var(--primary-color);
+    color: var(--main-white);
+    margin-left: .5em;
+}
+
+#clear-btn {
+    background-color: var(--main-red);
+    color: var(--main-white);
+    margin-left: 1em;
+}
+
+
 
 
 /*-------------
