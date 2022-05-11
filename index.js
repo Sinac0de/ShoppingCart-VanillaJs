@@ -13,7 +13,7 @@ function showModal() {
 function closeTheModal() {
     overlay.style.display = "none";
     cartModal.style.opacity = 0;
-    cartModal.style.transform = "translateY(-20em)";
+    cartModal.style.transform = "translateY(-60em)";
 }
 
 

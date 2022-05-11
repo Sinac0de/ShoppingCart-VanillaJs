@@ -39,6 +39,7 @@ body {
 ---------------*/
 nav {
     position: sticky;
+    z-index: 2;
     top: 0;
     background-color: var(--main-white);
     height: 60px;
@@ -193,6 +194,7 @@ nav span:hover {
 .overlay {
     display: none;
     position: absolute;
+    z-index: 5;
     top: 0;
     bottom: 0;
     left: 0;
@@ -203,6 +205,7 @@ nav span:hover {
 .cart-modal {
     position: fixed;
     top: 11em;
+    z-index: 6;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -212,7 +215,7 @@ nav span:hover {
     max-width: 700px;
     padding: 1em;
     opacity: 0;
-    transform: translateY(-20em);
+    transform: translateY(-60em);
 }
 
 .cart-body {
