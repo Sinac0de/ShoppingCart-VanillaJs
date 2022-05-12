@@ -238,7 +238,7 @@ nav span:hover {
 .cart-item-info {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     height: 100%;
     line-height: 2em;
 }
