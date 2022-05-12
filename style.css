@@ -212,7 +212,7 @@ nav span:hover {
     align-items: center;
     background-color: white;
     border-radius: 15px;
-    max-width: 700px;
+    max-width: 90%;
     padding: 1em;
     opacity: 0;
     transform: translateY(-60em);
