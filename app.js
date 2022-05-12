@@ -9,9 +9,9 @@ const closeModal = document.querySelector("#confirm-btn");
 /*------
 products
 -------*/
-import { productsData } from './products.js';
+import { productsData } from './products.js'; //products data
 
-const productsDom = document.querySelector('.products');
+const productsDom = document.querySelector('.products');//products container
 
 // TODO 
 // 1. Get products
@@ -46,13 +46,18 @@ class UI {
     }
 }
 // 3. storage
-class storage { }
+class Storage {
+    static saveProducts(products) {
+        localStorage.setItem("products", JSON.stringify(products));
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const products = new Products();
     const productsData = products.getproducts();
     const ui = new UI();
-    ui.displayProducts(productsData);
+    ui.displayProducts(productsData);//Display products on DOM
+    Storage.saveProducts(productsData);
 })
 
 /*-------------
