@@ -16,7 +16,7 @@ import { productsData } from './products.js'; //products data
 const productsDom = document.querySelector('.products');//products container
 
 //cart Variables...
-const cart = [];
+let cart = [];
 
 // 1. Get products
 class Products {
@@ -55,27 +55,44 @@ class UI {
         const buttons = [...addToCartBtns];
         buttons.forEach(btn => {
             const id = btn.dataset.id;
+            console.log(id);
             //check if the product is in cart or not...
-            const isInCart = cart.find(p => p.id === id);
+            const isInCart = cart.find(product => product.id === id);
+            console.log(cart);
             if (isInCart) {
-                btn.innerHTML = '<i class="fa-solid fa-cart-circle-check"></i> In Cart'; //change btn text...
+                console.log("ridam");
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> In Cart'; //change btn text...
                 btn.disabled = true; // to prevent user from clicking the button
             }
             //if isn't in cart...
             btn.addEventListener("click", event => {
-                //TODO
+                event.currentTarget.innerHTML = '<i class="fa-solid fa-check"></i> In Cart'; //with currentTarget the target will be the actual eventlistener so if you click on icon still refers to the button ... //![BUGFIX]
+                event.currentTarget.disabled = true;
                 //1.get product from productsData
+                const addedProduct = Storage.getProduct(id); // get Product with that id
+                console.log(addedProduct);
                 //2.add product to cart
+                cart = [...cart, { ...addedProduct, quantity: 1 }];
                 //3.save added products in cart with local storage
-            })
+
+                Storage.saveCart(cart);
+            });
+
         });
 
     }
 }
 // 3. storage
 class Storage {
-    static saveProducts(products) {
+    static saveProducts(products) {//save all products on DOM
         localStorage.setItem("products", JSON.stringify(products));
+    }
+    static getProduct(id) {//get the product with an specific id from local storage
+        const _products = JSON.parse(localStorage.getItem("products"));
+        return _products.find(p => p.id === parseInt(id));
+    }
+    static saveCart(cart) {//save added products to cart in the local storage
+        localStorage.setItem("cart", JSON.stringify(cart));
     }
 }
 
