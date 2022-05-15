@@ -12,6 +12,7 @@
     --primary-color: #866EFB;
     --main-white: #ffffff;
     --main-gray: #474747;
+    --main-black: #000000;
     --main-purple: rgb(96, 34, 240);
     --main-red: rgb(255, 136, 136);
     --main-dark-red: rgb(208, 111, 111);
@@ -99,6 +100,20 @@ nav span:hover {
     font-weight: bold;
 }
 
+.fun-icon {
+    transition: transform 0.9s cubic-bezier(0.5, 0.9, 0.1, 1.2);
+}
+
+.fun-icon:hover {
+    transform: rotate(720deg);
+    transition: transform 0.9s cubic-bezier(0.5, 0.9, 0.1, 1.2);
+}
+
+.fun-icon a,
+.fun-icon a:visited {
+    color: var(--main-black);
+}
+
 /*----------------------
  Products section STYLES
 -----------------------*/
@@ -171,14 +186,6 @@ nav span:hover {
     border-radius: 15px;
 }
 
-/* .add-to-cart:hover {
-    cursor: pointer;
-    opacity: 100%;
-    background-color: var(--primary-color);
-    color: var(--main-white);
-    border-radius: 15px;
-    transition: background-color .5s, opacity .5s;
-} */
 .addToCart-hover:hover {
     cursor: pointer;
     opacity: 100%;
@@ -310,9 +317,6 @@ nav span:hover {
 #clear-btn:hover {
     background-color: var(--main-dark-red);
 }
-
-
-
 
 /*-------------
  FOOTER Styles
