@@ -171,7 +171,15 @@ nav span:hover {
     border-radius: 15px;
 }
 
-.add-to-cart:hover {
+/* .add-to-cart:hover {
+    cursor: pointer;
+    opacity: 100%;
+    background-color: var(--primary-color);
+    color: var(--main-white);
+    border-radius: 15px;
+    transition: background-color .5s, opacity .5s;
+} */
+.addToCart-hover:hover {
     cursor: pointer;
     opacity: 100%;
     background-color: var(--primary-color);
