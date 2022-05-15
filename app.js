@@ -1,23 +1,15 @@
-/*--------------
- MODAL VARIABLES
----------------*/
 const cartBtn = document.querySelector(".cart-icon");
 const cartModal = document.querySelector(".cart-modal");
 const overlay = document.querySelector(".overlay");
 const closeModal = document.querySelector("#confirm-btn");
-
+const productsDom = document.querySelector('.products');//products container
+const cartItems = document.querySelector(".cart-count");
+const cartTotalPrice = document.querySelector('.total-price');
 //__I didn't add addToCartBtns here because they will load when products will show up (when refreshing)... 
 
-/*------
-products
--------*/
 import { productsData } from './products.js'; //products data
 
-const productsDom = document.querySelector('.products');//products container
-
-//cart Variables...
 let cart = [];
-
 // 1. Get products
 class Products {
     //~ OR GETTING FROM API
@@ -41,45 +33,57 @@ class UI {
                 </div>
                 <div class="product-price-cart">
                     <p class="product-price">$${item.price}</p>
-                    <button class="add-to-cart" data-id =${item.id}><i class="fas fa-shopping-cart"></i> Add to cart</button>
+                    <button class="add-to-cart addToCart-hover" data-id =${item.id}><i class="fas fa-shopping-cart"></i> Add to cart</button>
                 </div>
             </div>
         </section>`;
             productsDom.innerHTML = result;
         })
     }
-
     //addToCart buttons...
     addToCartbuttons() {
         const addToCartBtns = document.querySelectorAll('.add-to-cart');
         const buttons = [...addToCartBtns];
         buttons.forEach(btn => {
             const id = btn.dataset.id;
-            console.log(id);
             //check if the product is in cart or not...
             const isInCart = cart.find(product => product.id === id);
-            console.log(cart);
             if (isInCart) {
-                console.log("ridam");
                 btn.innerHTML = '<i class="fa-solid fa-check"></i> In Cart'; //change btn text...
                 btn.disabled = true; // to prevent user from clicking the button
+                btn.classList.remove('addToCart-hover');
+                btn.style.color = "var(--main-black)";
+                event.currentTarget.title = "Already in the cart!";
             }
             //if isn't in cart...
             btn.addEventListener("click", event => {
-                event.currentTarget.innerHTML = '<i class="fa-solid fa-check"></i> In Cart'; //with currentTarget the target will be the actual eventlistener so if you click on icon still refers to the button ... //![BUGFIX]
+                event.currentTarget.innerHTML = '<i class="fa-solid fa-check"></i> In Cart';
                 event.currentTarget.disabled = true;
+                event.currentTarget.classList.remove('addToCart-hover');
+                event.currentTarget.style.color = "var(--main-black)";
+                event.currentTarget.title = "Already in the cart!";
                 //1.get product from productsData
                 const addedProduct = Storage.getProduct(id); // get Product with that id
-                console.log(addedProduct);
                 //2.add product to cart
                 cart = [...cart, { ...addedProduct, quantity: 1 }];
                 //3.save added products in cart with local storage
-
                 Storage.saveCart(cart);
+                //Update cart value
+                this.setCartValue(cart);
             });
 
         });
 
+    }
+    setCartValue(cart) {
+        let tempItems = 0; // number of items in the cart
+        //Cart total price
+        const totalPrice = cart.reduce((acc, curr) => {
+            tempItems += curr.quantity;
+            return acc + curr.quantity * curr.price;
+        }, 0);
+        cartItems.innerText = tempItems; //change number of in cart items on DOM
+        cartTotalPrice.innerText = `Total price : ${totalPrice.toFixed(2)}$`;//Update the Cart total price
     }
 }
 // 3. storage
