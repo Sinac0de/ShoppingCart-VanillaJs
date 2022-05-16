@@ -5,6 +5,7 @@ const closeModal = document.querySelector("#confirm-btn");
 const productsDom = document.querySelector('.products');//products container
 const cartItems = document.querySelector(".cart-count");
 const cartTotalPrice = document.querySelector('.total-price');
+const cartContent = document.querySelector(".cart-content");
 //__I didn't add addToCartBtns here because they will load when products will show up (when refreshing)... 
 
 import { productsData } from './products.js'; //products data
@@ -63,13 +64,15 @@ class UI {
                 event.currentTarget.style.color = "var(--main-black)";
                 event.currentTarget.title = "Already in the cart!";
                 //1.get product from productsData
-                const addedProduct = Storage.getProduct(id); // get Product with that id
+                const addedProduct = { ...Storage.getProduct(id), quantity: 1 }; // get Product with that id
                 //2.add product to cart
-                cart = [...cart, { ...addedProduct, quantity: 1 }];
+                cart = [...cart, addedProduct];
                 //3.save added products in cart with local storage
                 Storage.saveCart(cart);
                 //Update cart value
                 this.setCartValue(cart);
+                //add cart item to DOM
+                this.addCartItem(addedProduct);
             });
 
         });
@@ -85,6 +88,26 @@ class UI {
         cartItems.innerText = tempItems; //change number of in cart items on DOM
         cartTotalPrice.innerText = `Total price : ${totalPrice.toFixed(2)}$`;//Update the Cart total price
     }
+
+    addCartItem(addedProduct) {
+        const div = document.createElement('div');
+        div.classList.add('cart-item');
+        div.innerHTML = `<div class="cart-item-img">
+            <img src=${addedProduct.imageUrl} alt=${addedProduct.imageAlt}>
+        </div>
+        <div class="cart-item-info">
+            <p class="cart-item-title">${addedProduct.title}</p>
+            <p class="cart-item-price">$${addedProduct.price}</p>
+        </div>
+        <div class="cart-item-count">
+            <span><i class="fa-solid fa-angle-up"></i></span>
+            <p>${addedProduct.quantity}</p>
+            <span><i class="fa-solid fa-angle-down"></i></span>
+        </div>
+        <span><i class="fa-solid fa-trash-can"></i></span>`;
+        cartContent.appendChild(div);
+    }
+
 }
 // 3. storage
 class Storage {
@@ -113,10 +136,14 @@ document.addEventListener('DOMContentLoaded', () => {
 MODAL FUNCTIONS
 --------------*/
 function showModal() {
-    overlay.style.display = "block";
-    cartModal.style.opacity = 1;
-    cartModal.style.transform = "translateY(0em)";
-    cartModal.style.transition = "all .5s";
+    if (cartItems.innerHTML === "0") {
+        alert("Cart shoma khali ast!")
+    } else {
+        overlay.style.display = "block";
+        cartModal.style.opacity = 1;
+        cartModal.style.transform = "translateY(0em)";
+        cartModal.style.transition = "all .5s";
+    }
 }
 
 function closeTheModal() {
