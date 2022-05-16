@@ -106,7 +106,6 @@ nav span:hover {
 
 .fun-icon:hover {
     transform: rotate(720deg);
-    transition: transform 0.9s cubic-bezier(0.5, 0.9, 0.1, 1.2);
 }
 
 .fun-icon a,
@@ -227,13 +226,19 @@ nav span:hover {
     align-items: center;
     background-color: white;
     border-radius: 15px;
-    max-width: 90%;
+    max-width: 400px;
     padding: 1em;
     opacity: 0;
     transform: translateY(-60em);
 }
 
-.cart-body {
+@media screen and (max-width: 425px) {
+    .cart-modal {
+        max-width: 90%;
+    }
+}
+
+.cart-content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -243,7 +248,7 @@ nav span:hover {
 }
 
 .cart-item {
-    width: 90%;
+    width: 95%;
     display: flex;
     margin-bottom: .5em;
     justify-content: space-around;
@@ -254,22 +259,20 @@ nav span:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height: 100%;
-    line-height: 2em;
+    height: 50%;
+    width: 30%;
 }
 
 .cart-item-count {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.cart-item-count {
     line-height: 1em;
+    color: var(--primary-color);
 }
 
 .cart-item-count i,
-.fa-trash {
+.fa-trash-can {
     cursor: pointer;
     font-size: larger;
 }
