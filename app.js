@@ -3,9 +3,9 @@ const cartModal = document.querySelector(".cart-modal");
 const overlay = document.querySelector(".overlay");
 const closeModal = document.querySelector("#confirm-btn");
 const productsDom = document.querySelector('.products');//products container
-const cartItems = document.querySelector(".cart-count");
+const cartItems = document.querySelector(".cart-count"); //number of products in cart
 const cartTotalPrice = document.querySelector('.total-price');
-const cartContent = document.querySelector(".cart-content");
+const cartContent = document.querySelector(".cart-content"); //items section of cart modal
 //__I didn't add addToCartBtns here because they will load when products will show up (when refreshing)... 
 
 import { productsData } from './products.js'; //products data
@@ -78,6 +78,7 @@ class UI {
         });
 
     }
+    //Cart total price
     setCartValue(cart) {
         let tempItems = 0; // number of items in the cart
         //Cart total price
@@ -88,7 +89,7 @@ class UI {
         cartItems.innerText = tempItems; //change number of in cart items on DOM
         cartTotalPrice.innerText = `Total price : ${totalPrice.toFixed(2)}$`;//Update the Cart total price
     }
-
+    //add items to cart and show on DOM
     addCartItem(addedProduct) {
         const div = document.createElement('div');
         div.classList.add('cart-item');
@@ -108,25 +109,42 @@ class UI {
         cartContent.appendChild(div);
     }
 
+    setupApp() {
+        //get cart from storage
+        cart = Storage.getCart() || []; //change the global variable (cart)
+        //for each items in cart call addCartItem
+        cart.forEach(cartItem => this.addCartItem(cartItem));
+        //setvalues : price + items count
+        this.setCartValue(cart);
+    }
+
 }
 // 3. storage
 class Storage {
     static saveProducts(products) {//save all products on DOM
         localStorage.setItem("products", JSON.stringify(products));
     }
+
     static getProduct(id) {//get the product with an specific id from local storage
         const _products = JSON.parse(localStorage.getItem("products"));
         return _products.find(p => p.id === parseInt(id));
     }
+
     static saveCart(cart) {//save added products to cart in the local storage
         localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    static getCart(cart) {
+        return JSON.parse(localStorage.getItem("cart"));
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     const products = new Products();
     const productsData = products.getproducts();
+    //get cart and setup app
     const ui = new UI();
+    ui.setupApp();
     ui.displayProducts(productsData);//Display products on DOM
     ui.addToCartbuttons();
     Storage.saveProducts(productsData);
@@ -136,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
 MODAL FUNCTIONS
 --------------*/
 function showModal() {
+    //check if there's any product in cart
     if (cartItems.innerHTML === "0") {
         alert("Cart shoma khali ast!")
     } else {
