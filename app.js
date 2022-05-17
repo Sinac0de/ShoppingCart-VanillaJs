@@ -1,16 +1,18 @@
 const cartBtn = document.querySelector(".cart-icon");
 const cartModal = document.querySelector(".cart-modal");
+const modalHeader = document.querySelector(".cart-header h2");
 const overlay = document.querySelector(".overlay");
 const closeModal = document.querySelector("#confirm-btn");
 const productsDom = document.querySelector('.products');//products container
 const cartItems = document.querySelector(".cart-count"); //number of products in cart
 const cartTotalPrice = document.querySelector('.total-price');
 const cartContent = document.querySelector(".cart-content"); //items section of cart modal
+const clearCart = document.querySelector("#clear-btn");
 //__I didn't add addToCartBtns here because they will load when products will show up (when refreshing)... 
 
 import { productsData } from './products.js'; //products data
 
-let cart = [];
+let cart = [];//cart Items will be stored in this array
 // 1. Get products
 class Products {
     //~ OR GETTING FROM API
@@ -18,6 +20,9 @@ class Products {
         return productsData;
     }
 }
+
+let buttonsDOM = [];//addToCart buttons will be stored in this array
+
 // 2. Display products on DOM
 class UI {
     displayProducts(productsData) {
@@ -42,10 +47,11 @@ class UI {
         })
     }
     //addToCart buttons...
-    addToCartbuttons() {
-        const addToCartBtns = document.querySelectorAll('.add-to-cart');
-        const buttons = [...addToCartBtns];
-        buttons.forEach(btn => {
+    getAddToCartbuttons() {
+        const addToCartBtns = [...document.querySelectorAll('.add-to-cart')];
+        buttonsDOM = addToCartBtns;
+
+        addToCartBtns.forEach(btn => {
             const id = btn.dataset.id;
             //check if the product is in cart or not...
             const isInCart = cart.find(product => product.id === id);
@@ -61,7 +67,6 @@ class UI {
                 event.currentTarget.innerHTML = '<i class="fa-solid fa-check"></i> In Cart';
                 event.currentTarget.disabled = true;
                 event.currentTarget.classList.remove('addToCart-hover');
-                event.currentTarget.style.color = "var(--main-black)";
                 event.currentTarget.title = "Already in the cart!";
                 //1.get product from productsData
                 const addedProduct = { ...Storage.getProduct(id), quantity: 1 }; // get Product with that id
@@ -101,11 +106,11 @@ class UI {
             <p class="cart-item-price">$${addedProduct.price}</p>
         </div>
         <div class="cart-item-count">
-            <span><i class="fa-solid fa-angle-up"></i></span>
+            <i class="fa-solid fa-angle-up" data-id = ${addedProduct.id}></i>
             <p>${addedProduct.quantity}</p>
-            <span><i class="fa-solid fa-angle-down"></i></span>
+            <i class="fa-solid fa-angle-down" data-id = ${addedProduct.id}></i>
         </div>
-        <span><i class="fa-solid fa-trash-can"></i></span>`;
+        <i class="fa-solid fa-trash-can" data-id = ${addedProduct.id}></i>`;
         cartContent.appendChild(div);
     }
 
@@ -117,6 +122,45 @@ class UI {
         //setvalues : price + items count
         this.setCartValue(cart);
     }
+
+    cartLogic() {
+        //clear cart items
+        clearCart.addEventListener("click", () => this.clearCart());
+
+    }
+
+    //clear cart content and values completely
+    clearCart() {
+        //remove total price
+        cart.forEach(cartItem => this.removeItem(cartItem.id));
+        //remove cart content children
+        while (cartContent.children.length) {
+            cartContent.removeChild(cartContent.children[0]);
+        }
+        closeTheModal();
+    }
+
+    //remove items in cart and update storage
+    removeItem(id) {
+        //Update cart
+        cart = cart.filter(cItem => cItem.id !== id);
+        //total price and cart items
+        this.setCartValue(cart);
+        //Update Storage:
+        Storage.saveCart(cart);
+        //get addtocart btns and change text and disabled
+        this.resetAddToCartBtn(id);
+    }
+
+    //reset add to cart button to default values and styles
+    resetAddToCartBtn(id) {
+        const button = buttonsDOM.find(btn => parseInt(btn.dataset.id) === parseInt(id));
+        button.innerHTML = '<i class="fas fa-shopping-cart"></i> Add to cart';
+        button.disabled = false;
+        button.classList.add('addToCart-hover');
+        button.title = "";
+    }
+
 
 }
 // 3. storage
@@ -145,8 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
     //get cart and setup app
     const ui = new UI();
     ui.setupApp();
+    ui.cartLogic();
     ui.displayProducts(productsData);//Display products on DOM
-    ui.addToCartbuttons();
+    ui.getAddToCartbuttons();
     Storage.saveProducts(productsData);
 })
 
