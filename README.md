@@ -4,7 +4,7 @@
 Beauiful responsive Shopping-Cart practice project with Local Storage. WORK IN PROGRESS...
 
 # Project Demo
-* You can see the Demo <a href="https://sinasimpletodolist.netlify.app/">Here</a> 
+* You can see the Demo <a href="(https://sinashoppingcartsimple.netlify.app/)">Here</a> 
 
 # Resurces
 > All product images are from <a href = "https://digikala.com">Digikala</a>.
