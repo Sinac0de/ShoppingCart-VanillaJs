@@ -177,7 +177,6 @@ nav span:hover {
 .add-to-cart {
     outline: none;
     border: none;
-    background-color: white;
     border: 1px solid gray;
     opacity: 60%;
     padding: .5em 1em;
@@ -319,6 +318,14 @@ nav span:hover {
 
 #clear-btn:hover {
     background-color: var(--main-dark-red);
+}
+
+@media screen and (max-width: 370px) {
+
+    #confirm-btn,
+    #clear-btn {
+        height: 3.5em;
+    }
 }
 
 /*-------------
