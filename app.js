@@ -52,32 +52,34 @@ class UI {
 
         addToCartBtns.forEach(btn => {
             const id = btn.dataset.id;
-            //check if the product is in cart or not...
-            const isInCart = cart.find(product => product.id === id);
+            //check if the product is in the cart or not...
+            const isInCart = cart.find(product => product.id === parseInt(id));
             if (isInCart) {
                 btn.innerHTML = '<i class="fa-solid fa-check"></i> In Cart'; //change btn text...
                 btn.disabled = true; // to prevent user from clicking the button
                 btn.classList.remove('addToCart-hover');
                 btn.style.color = "var(--main-black)";
-                btn.target.title = "Already in the cart!";
+                btn.title = "Already in the cart!";
+            } else {
+                //if isn't in the cart...
+                btn.addEventListener("click", event => {
+                    event.currentTarget.innerHTML = '<i class="fa-solid fa-check"></i> In Cart';
+                    event.currentTarget.disabled = true;
+                    event.currentTarget.classList.remove('addToCart-hover');
+                    event.currentTarget.style.color = "var(--main-black)";
+                    event.currentTarget.title = "Already in the cart!";
+                    //1.get product from productsData
+                    const addedProduct = { ...Storage.getProduct(id), quantity: 1 }; // get Product with that id
+                    //2.add product to cart
+                    cart = [...cart, addedProduct];
+                    //3.save added products in cart with local storage
+                    Storage.saveCart(cart);
+                    //Update cart value
+                    this.setCartValue(cart);
+                    //add cart item to DOM
+                    this.addCartItem(addedProduct);
+                });
             }
-            //if isn't in cart...
-            btn.addEventListener("click", event => {
-                event.currentTarget.innerHTML = '<i class="fa-solid fa-check"></i> In Cart';
-                event.currentTarget.disabled = true;
-                event.currentTarget.classList.remove('addToCart-hover');
-                event.currentTarget.title = "Already in the cart!";
-                //1.get product from productsData
-                const addedProduct = { ...Storage.getProduct(id), quantity: 1 }; // get Product with that id
-                //2.add product to cart
-                cart = [...cart, addedProduct];
-                //3.save added products in cart with local storage
-                Storage.saveCart(cart);
-                //Update cart value
-                this.setCartValue(cart);
-                //add cart item to DOM
-                this.addCartItem(addedProduct);
-            });
 
         });
 
@@ -203,6 +205,7 @@ class UI {
         button.disabled = false;
         button.classList.add('addToCart-hover');
         button.title = "";
+        button.style.color = "";
     }
 
 
@@ -234,9 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ui = new UI();
     ui.setupApp();
     ui.cartLogic();
-    // ui.getAddToCartbuttons();
     ui.displayProducts(productsData);//Display products on DOM
-    // ui.getAddToCartbuttons();
     Storage.saveProducts(productsData);
     ui.getAddToCartbuttons();
 })
