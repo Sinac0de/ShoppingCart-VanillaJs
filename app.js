@@ -127,6 +127,7 @@ class UI {
         clearCart.addEventListener("click", () => this.clearCart());
         //cart functionality
         cartContent.addEventListener("click", (event) => {
+
             if (event.target.classList.contains('increment-cart')) {
                 const incrementBtn = event.target;
                 //1. get item from cart
@@ -138,6 +139,24 @@ class UI {
                 Storage.saveCart(cart);
                 //4. Update cart item in UI
                 incrementBtn.nextElementSibling.innerText = addedItem.quantity;
+
+            } else if (event.target.classList.contains('decrement-cart')) {
+
+                const decrementBtn = event.target;
+                //1. get item from cart
+                const subItem = cart.find(cartItem => cartItem.id === parseInt(decrementBtn.dataset.id));
+                if (subItem.quantity < 2) {
+                    decrementBtn.disabled = true;
+                } else {
+                    subItem.quantity--;
+                    //2. update cart value
+                    this.setCartValue(cart);
+                    //3. save cart
+                    Storage.saveCart(cart);
+                    //4. Update cart item in UI
+                    decrementBtn.previousElementSibling.innerText = subItem.quantity;
+                }
+
             }
         });
 
