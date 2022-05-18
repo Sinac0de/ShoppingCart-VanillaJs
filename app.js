@@ -1,6 +1,5 @@
 const cartBtn = document.querySelector(".cart-icon");
 const cartModal = document.querySelector(".cart-modal");
-const modalHeader = document.querySelector(".cart-header h2");
 const overlay = document.querySelector(".overlay");
 const closeModal = document.querySelector("#confirm-btn");
 const productsDom = document.querySelector('.products');//products container
@@ -60,7 +59,7 @@ class UI {
                 btn.disabled = true; // to prevent user from clicking the button
                 btn.classList.remove('addToCart-hover');
                 btn.style.color = "var(--main-black)";
-                event.currentTarget.title = "Already in the cart!";
+                btn.target.title = "Already in the cart!";
             }
             //if isn't in cart...
             btn.addEventListener("click", event => {
@@ -106,11 +105,11 @@ class UI {
             <p class="cart-item-price">$${addedProduct.price}</p>
         </div>
         <div class="cart-item-count">
-            <i class="fa-solid fa-angle-up" data-id = ${addedProduct.id}></i>
+            <i class="fa-solid fa-angle-up increment-cart" data-id = ${addedProduct.id}></i>
             <p>${addedProduct.quantity}</p>
-            <i class="fa-solid fa-angle-down" data-id = ${addedProduct.id}></i>
+            <i class="fa-solid fa-angle-down decrement-cart" data-id = ${addedProduct.id}></i>
         </div>
-        <i class="fa-solid fa-trash-can" data-id = ${addedProduct.id}></i>`;
+        <i class="fa-solid fa-trash-can cart-remove-item" data-id = ${addedProduct.id}></i>`;
         cartContent.appendChild(div);
     }
 
@@ -126,6 +125,21 @@ class UI {
     cartLogic() {
         //clear cart items
         clearCart.addEventListener("click", () => this.clearCart());
+        //cart functionality
+        cartContent.addEventListener("click", (event) => {
+            if (event.target.classList.contains('increment-cart')) {
+                const incrementBtn = event.target;
+                //1. get item from cart
+                const addedItem = cart.find(cartItem => cartItem.id === parseInt(incrementBtn.dataset.id));
+                addedItem.quantity++;
+                //2. update cart value
+                this.setCartValue(cart);
+                //3. save cart
+                Storage.saveCart(cart);
+                //4. Update cart item in UI
+                incrementBtn.nextElementSibling.innerText = addedItem.quantity;
+            }
+        });
 
     }
 
@@ -190,9 +204,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const ui = new UI();
     ui.setupApp();
     ui.cartLogic();
+    // ui.getAddToCartbuttons();
     ui.displayProducts(productsData);//Display products on DOM
-    ui.getAddToCartbuttons();
+    // ui.getAddToCartbuttons();
     Storage.saveProducts(productsData);
+    ui.getAddToCartbuttons();
 })
 
 /*-------------
