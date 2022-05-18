@@ -141,22 +141,33 @@ class UI {
                 incrementBtn.nextElementSibling.innerText = addedItem.quantity;
 
             } else if (event.target.classList.contains('decrement-cart')) {
-
                 const decrementBtn = event.target;
                 //1. get item from cart
                 const subItem = cart.find(cartItem => cartItem.id === parseInt(decrementBtn.dataset.id));
-                if (subItem.quantity < 2) {
-                    decrementBtn.disabled = true;
-                } else {
-                    subItem.quantity--;
-                    //2. update cart value
-                    this.setCartValue(cart);
-                    //3. save cart
-                    Storage.saveCart(cart);
-                    //4. Update cart item in UI
-                    decrementBtn.previousElementSibling.innerText = subItem.quantity;
+                //check quantity
+                if (subItem.quantity === 1) {
+                    this.removeItem(subItem.id); //remove item from cart
+                    cartContent.removeChild(decrementBtn.parentElement.parentElement); //remove the item container
+                    return;
                 }
+                subItem.quantity--;
+                //2. update cart value
+                this.setCartValue(cart);
+                //3. save cart
+                Storage.saveCart(cart);
+                //4. Update cart item in UI
+                decrementBtn.previousElementSibling.innerText = subItem.quantity;
 
+            } else if (event.target.classList.contains('cart-remove-item')) {
+                const removeBtn = event.target;
+                //1. get item from cart
+                const _removedItem = cart.find(cartItem => cartItem.id === parseInt(removeBtn.dataset.id));
+                //2. remove item from cart
+                this.removeItem(_removedItem.id);
+                //3.save cart
+                Storage.saveCart(cart);
+                //4. Update cart item in UI
+                cartContent.removeChild(removeBtn.parentElement);
             }
         });
 
