@@ -180,6 +180,7 @@ nav span:hover {
     border: 1px solid gray;
     opacity: 60%;
     padding: .5em 1em;
+    background-color: var(--main-white);
     transition: background-color .5s, opacity .5s;
     border-radius: 15px;
 }
