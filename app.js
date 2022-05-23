@@ -60,26 +60,25 @@ class UI {
                 btn.classList.remove('addToCart-hover');
                 btn.style.color = "var(--main-black)";
                 btn.title = "Already in the cart!";
-            } else {
-                //if isn't in the cart...
-                btn.addEventListener("click", event => {
-                    event.currentTarget.innerHTML = '<i class="fa-solid fa-check"></i> In Cart';
-                    event.currentTarget.disabled = true;
-                    event.currentTarget.classList.remove('addToCart-hover');
-                    event.currentTarget.style.color = "var(--main-black)";
-                    event.currentTarget.title = "Already in the cart!";
-                    //1.get product from productsData
-                    const addedProduct = { ...Storage.getProduct(id), quantity: 1 }; // get Product with that id
-                    //2.add product to cart
-                    cart = [...cart, addedProduct];
-                    //3.save added products in cart with local storage
-                    Storage.saveCart(cart);
-                    //Update cart value
-                    this.setCartValue(cart);
-                    //add cart item to DOM
-                    this.addCartItem(addedProduct);
-                });
             }
+            //if isn't in the cart...
+            btn.addEventListener("click", event => {
+                event.currentTarget.innerHTML = '<i class="fa-solid fa-check"></i> In Cart';
+                event.currentTarget.disabled = true;
+                event.currentTarget.classList.remove('addToCart-hover');
+                event.currentTarget.style.color = "var(--main-black)";
+                event.currentTarget.title = "Already in the cart!";
+                //1.get product from productsData
+                const addedProduct = { ...Storage.getProduct(id), quantity: 1 }; // get Product with that id
+                //2.add product to cart
+                cart = [...cart, addedProduct];
+                //3.save added products in cart with local storage
+                Storage.saveCart(cart);
+                //Update cart value
+                this.setCartValue(cart);
+                //add cart item to DOM
+                this.addCartItem(addedProduct);
+            });
 
         });
 
