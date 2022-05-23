@@ -1,7 +1,7 @@
 
 ![Picture](https://i.ibb.co/nBmfMcD/shopping-cart.jpg)
 # ShoppingCart-VanillaJs
-Beauiful responsive Shopping-Cart practice project with Local Storage. WORK IN PROGRESS...
+Beauiful responsive Shopping-Cart practice project with Local Storage.Don't forget to hover over the cute cat at the top ;)
 
 # Project Demo
 * You can see the Demo <a href="https://sinashoppingcartsimple.netlify.app/">Here</a> 
