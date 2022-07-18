@@ -123,6 +123,7 @@ nav span:hover {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2em;
     justify-content: center;
+    min-height: 100vh;
 }
 
 .product {
