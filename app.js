@@ -247,7 +247,7 @@ MODAL FUNCTIONS
 function showModal() {
     //check if there's any product in cart
     if (cartItems.innerHTML === "0") {
-        alert("Cart shoma khali ast!")
+        alert("Your cart is Empty!")
     } else {
         overlay.style.display = "block";
         cartModal.style.opacity = 1;
